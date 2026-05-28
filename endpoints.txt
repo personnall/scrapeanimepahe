@@ -1,0 +1,32 @@
+# API Endpoints
+
+Path | Method | Description | Parameters | Example
+--- | --- | --- | --- | ---
+/trending | GET | Get trending anime | page (optional) | `/trending?page=1`
+/search | GET | Search anime by query | q (required), page (optional) | `/search?q=naruto&page=1`
+/info | GET | Get anime details by AnimePahe session ID | id (required) | `/info?id=12345`
+/advanced-search | GET | Advanced anime search with filters | search, genres, format, season, seasonYear, sort, adult, page | `/advanced-search?search=action&genres=fantasy&format=TV&page=1`
+/ongoing | GET | Get currently airing anime | page (optional) | `/ongoing?page=1`
+/recent | GET | Get recently updated anime | page (optional) | `/recent?page=1`
+/updates | GET | Get upcoming anime (not yet released) | page (optional) | `/updates?page=1`
+/new-releases | GET | Get new releases | page (optional) | `/new-releases?page=1`
+/completed | GET | Get completed anime | page (optional), perPage (optional) | `/completed?page=1&perPage=20`
+/popular | GET | Get popular anime | page (optional) | `/popular?page=1`
+/spotlight | GET | Get spotlight anime (top 10 trending releases) | - | `/spotlight`
+/schedule | GET | Get anime airing schedule | page (optional) | `/schedule?page=1`
+/country | GET | Get anime by country of origin | country (required), page (optional) | `/country?country=JP&page=1`
+/releasing | GET | Get currently releasing anime | page (optional) | `/releasing?page=1`
+/tv | GET | Get TV format anime | page (optional) | `/tv?page=1`
+/movie | GET | Get movie format anime | page (optional) | `/movie?page=1`
+/ona | GET | Get ONA format anime | page (optional) | `/ona?page=1`
+/ova | GET | Get OVA format anime | page (optional) | `/ova?page=1`
+/trending-range | GET | Get trending anime by time range | range (today/week/month) | `/trending-range?range=week`
+/fetchNameid/{animeName} | GET | Search anime by name and return best match with ID | animeName (path) | `/fetchNameid/Naruto`
+/random-anime | GET | Get a random anime | - | `/random-anime`
+/seasons | GET | Get all seasons of an anime | id (required) | `/seasons?id=12345`
+
+## Search structure
+Use `/search?q={query}` to query anime titles.
+- `q` is required.
+- `page` is optional.
+- Example: `/search?q=naruto&page=1`
