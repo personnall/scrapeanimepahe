@@ -2,6 +2,30 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
+function sanitizeHeaders(headers: Headers) {
+  const sanitized = new Headers();
+  const blocked = new Set([
+    "content-encoding",
+    "content-length",
+    "transfer-encoding",
+    "connection",
+    "keep-alive",
+    "proxy-authenticate",
+    "proxy-authorization",
+    "te",
+    "trailer",
+    "upgrade",
+  ]);
+
+  headers.forEach((value, key) => {
+    if (!blocked.has(key.toLowerCase())) {
+      sanitized.set(key, value);
+    }
+  });
+
+  return sanitized;
+}
+
 export async function GET(request: Request, { params }: { params: Promise<{ route: string[] }> }) {
   const { route } = await params;
   if (!route || route.length === 0) {
@@ -25,7 +49,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ rout
     });
 
     const body = await response.arrayBuffer();
-    const headers = new Headers(response.headers);
+    const headers = sanitizeHeaders(new Headers(response.headers));
     return new NextResponse(body, {
       status: response.status,
       headers,
@@ -43,7 +67,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ rout
   });
 
   const body = await response.arrayBuffer();
-  const headers = new Headers(response.headers);
+  const headers = sanitizeHeaders(new Headers(response.headers));
   return new NextResponse(body, {
     status: response.status,
     headers,
